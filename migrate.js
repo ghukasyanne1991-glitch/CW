@@ -1,18 +1,31 @@
 import DB from './clients/db.mysql.js';
 
-// 1. https://dashboard.render.com/
-// 2. https://console.aiven.io/account/a57ec6ef976b/project/argishti-e01/services/mysql-041999/overview
-
 (async () => {
   // Users TABLE
   await DB.query(`
-      CREATE TABLE IF NOT EXISTS users
+    CREATE TABLE IF NOT EXISTS users
+    (
+      id         INT          NOT NULL AUTO_INCREMENT,
+      first_name VARCHAR(255) NOT NULL,
+      last_name  VARCHAR(255) NOT NULL,
+      email      VARCHAR(255) NOT NULL,
+      dob        DATE         NOT NULL,
+      password   VARCHAR(255) NOT NULL,
+      PRIMARY KEY (id)
+      );
+  `);
+
+  // Posts TABLE
+  await DB.query(`
+      CREATE TABLE IF NOT EXISTS posts
       (
-          id         INT          NOT NULL AUTO_INCREMENT,
-          username VARCHAR(255) NOT NULL,
-          email      VARCHAR(255) NOT NULL,
-          password   VARCHAR(255) NOT NULL,
-          PRIMARY KEY (id)
+          id        INT          NOT NULL AUTO_INCREMENT,
+          title     VARCHAR(255) NOT NULL,
+          content   TEXT         NOT NULL,
+          author_id INT          NOT NULL,
+          created_at DATETIME    NOT NULL,
+          PRIMARY KEY (id),
+          FOREIGN KEY (author_id) REFERENCES users(id) ON DELETE CASCADE
       );
   `);
 })();

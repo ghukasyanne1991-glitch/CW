@@ -1,25 +1,20 @@
-import Joi from 'joi';
+import joi from 'joi';
 
 export default {
-    registration: {
-        body: Joi.object({
-            username: Joi.string().min(3).max(100).required(),
-            email: Joi.string().email().required(),
-            password: Joi.string().min(6).required(),
-        }),
-    },
+  registration: {
+    body: joi.object({
+      email: joi.string().email().required(),
+      password: joi.string().min(8).max(32).required(),
+      dob: joi.date().required(),
+      first_name: joi.string().required(),
+      last_name: joi.string().required(),
+    }),
+  },
 
-    login: {
-        body: Joi.object({
-            email: Joi.string().email().required(),
-            password: Joi.string().required(),
-        }),
-    },
-
-    post: {
-        body: Joi.object({
-            title: Joi.string().min(3).required(),
-            content: Joi.string().min(1).required(),
-        })
-    }
+  login: {
+    body: joi.object({
+      email: joi.string().email().required(),
+      password: joi.string().min(8).max(32).required(),
+    }),
+  },
 }

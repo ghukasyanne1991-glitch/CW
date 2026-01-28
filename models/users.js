@@ -37,7 +37,7 @@ export async function findOne(where) {
   return _.get(result, '0.0', null);
 }
 
-export async function create({ username, email, password}) {
+export async function create({ first_name, last_name, email, password, dob }) {
   if (await findOne({ email })) {
     throw HttpErrors(422, "User already exists!");
   }
@@ -45,11 +45,11 @@ export async function create({ username, email, password}) {
   const passwordMD5 = md5(md5(password) + USER_SECRET);
 
   const query = `
-      INSERT INTO users (username, email, password)
+      INSERT INTO users (first_name, last_name, email, password, dob)
       VALUES (?, ?, ?, ?, ?);
   `;
 
-  await DB.query(query, [username, email, passwordMD5]);
+  await DB.query(query, [first_name, last_name, email, passwordMD5, dob]);
 
   return await findOne({ email });
 }

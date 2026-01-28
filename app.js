@@ -20,8 +20,6 @@ app.use(express.static(path.resolve('public')));
 
 app.use(router);
 
-//app.post('/registration')
-
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
   next(createError(404));
@@ -37,6 +35,5 @@ app.use((err, req, res, next) => {
   res.status(err.status || 500);
   res.json(err);
 });
-
 
 export default app;

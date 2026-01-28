@@ -43,13 +43,14 @@ export default {
 
   async registration(req, res, next) {
     try {
-      const { username, email, password } = req.body;
+      const { first_name, last_name, email, password, dob } = req.body;
 
       const user = await Users.create({
-        username,
+        first_name,
+        last_name,
         email,
         password,
-
+        dob
       });
 
       res.json({
@@ -60,9 +61,6 @@ export default {
       next(e)
     }
   },
-
-
-
 
   async profile(req, res, next) {
     try {

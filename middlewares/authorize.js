@@ -20,7 +20,7 @@ export default async function (req, res, next) {
 
     user = await Users.findByPk(data.userId);
   } catch (err) {
-    return res.status(401).json({ message: 'Invalid or expired token' });
+    ///
   }
 
   if (!user) {
